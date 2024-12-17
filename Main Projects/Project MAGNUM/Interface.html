@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Personal Organization System</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      input[type="text"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Personal Organization System</h1>
+
+    <table id="organizationTable">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Priority</th>
+          <th>Deadline</th>
+          <th>Assigned To</th>
+          <th>Status</th>
+          <th>Category</th>
+          <th>Location</th>
+          <th>Duration</th>
+          <th>Reminders</th>
+          <th>Notes</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Existing tasks will be dynamically added here -->
+      </tbody>
+    </table>
+
+    <br />
+
+    <h2>Add New Item</h2>
+    <form id="itemForm">
+      <label for="title">Title:</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        placeholder="Enter item title"
+        required
+      />
+
+      <label for="type">Type:</label>
+      <select id="type" name="type" required>
+        <option value="">Select type</option>
+        <option value="Task">Task</option>
+        <option value="Event">Event</option>
+        <option value="Appointment">Appointment</option>
+        <option value="Note">Note</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="priority">Priority:</label>
+      <select id="priority" name="priority" required>
+        <option value="">Select priority</option>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+      </select>
+
+      <label for="deadline">Deadline:</label>
+      <input type="date" id="deadline" name="deadline" />
+
+      <label for="assignedTo">Assigned To:</label>
+      <input
+        type="text"
+        id="assignedTo"
+        name="assignedTo"
+        placeholder="Enter assigned person"
+      />
+
+      <label for="status">Status:</label>
+      <select id="status" name="status" required>
+        <option value="">Select status</option>
+        <option value="To Do">To Do</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+
+      <label for="category">Category:</label>
+      <select id="category" name="category" required>
+        <option value="">Select category</option>
+        <option value="Work">Work</option>
+        <option value="Personal">Personal</option>
+        <option value="Errands">Errands</option>
+        <option value="Chores">Chores</option>
+        <option value="Health">Health</option>
+        <option value="Finances">Finances</option>
+        <option value="Travel">Travel</option>
+        <option value="Hobbies">Hobbies</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="location">Location:</label>
+      <input
+        type="text"
+        id="location"
+        name="location"
+        placeholder="Enter location"
+      />
+
+      <label for="duration">Duration:</label>
+      <input
+        type="text"
+        id="duration"
+        name="duration"
+        placeholder="Enter duration (e.g., 1h, 30m)"
+      />
+
+      <label for="reminders">Reminders:</label>
+      <textarea
+        id="reminders"
+        name="reminders"
+        placeholder="Enter reminders"
+      ></textarea>
+
+      <label for="notes">Notes:</label>
+      <textarea
+        id="notes"
+        name="notes"
+        placeholder="Enter additional notes"
+      ></textarea>
+
+      <button type="submit">Add Item</button>
+    </form>
+
+    <script>
+      // JavaScript code to handle item management
+      const itemForm = document.getElementById("itemForm");
+      const organizationTable = document.getElementById("organizationTable");
+      const items = [];
+
+      function addItem(item) {
+        items.push(item);
+        renderTable();
+      }
+
+      function renderTable() {
+        const tableBody = organizationTable.getElementsByTagName("tbody")[0];
+        tableBody.innerHTML = "";
+
+        items.forEach((item, index) => {
+          const row = document.createElement("tr");
+
+          const titleCell = document.createElement("td");
+          titleCell.textContent = item.title;
+          row.appendChild(titleCell);
+
+          const typeCell = document.createElement("td");
+          typeCell.textContent = item.type;
+          row.appendChild(typeCell);
+
+          const priorityCell = document.createElement("td");
+          priorityCell.textContent = item.priority;
+          row.appendChild(priorityCell);
+
+          const deadlineCell = document.createElement("td");
+          deadlineCell.textContent = item.deadline;
+          row.appendChild(deadlineCell);
+
+          const assignedToCell = document.createElement("td");
+          assignedToCell.textContent = item.assignedTo;
+          row.appendChild(assignedToCell);
+
+          const statusCell = document.createElement("td");
+          statusCell.textContent = item.status;
+          row.appendChild(statusCell);
+
+          const categoryCell = document.createElement("td");
+          categoryCell.textContent = item.category;
+          row.appendChild(categoryCell);
+
+          const locationCell = document.createElement("td");
+          locationCell.textContent = item.location;
+          row.appendChild(locationCell);
+
+          const durationCell = document.createElement("td");
+          durationCell.textContent = item.duration;
+          row.appendChild(durationCell);
+
+          const remindersCell = document.createElement("td");
+          remindersCell.textContent = item.reminders;
+          row.appendChild(remindersCell);
+
+          const notesCell = document.createElement("td");
+          notesCell.textContent = item.notes;
+          row.appendChild(notesCell);
+
+          const actionCell = document.createElement("td");
+          const deleteButton = document.createElement("button");
+          deleteButton.textContent = "Delete";
+          deleteButton.addEventListener("click", () => {
+            items.splice(index, 1);
+            renderTable();
+          });
+          actionCell.appendChild(deleteButton);
+          row.appendChild(actionCell);
+
+          tableBody.appendChild(row);
+        });
+      }
+
+      itemForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const title = document.getElementById("title").value;
+        const type = document.getElementById("type").value;
+        const priority = document.getElementById("priority").value;
+        const deadline = document.getElementById("deadline").value;
+        const assignedTo = document.getElementById("assignedTo").value;
+        const status = document.getElementById("status").value;
+        const category = document.getElementById("category").value;
+        const location = document.getElementById("location").value;
+        const duration = document.getElementById("duration").value;
+        const reminders = document.getElementById("reminders").value;
+        const notes = document.getElementById("notes").value;
+
+        const newItem = {
+          title: title,
+          type: type,
+          priority: priority,
+          deadline: deadline,
+          assignedTo: assignedTo,
+          status: status,
+          category: category,
+          location: location,
+          duration: duration,
+          reminders: reminders,
+          notes: notes,
+        };
+
+        addItem(newItem);
+
+        // Clear the form
+        itemForm.reset();
+      });
+    </script>
+  </body>
+
+  
+</html>
